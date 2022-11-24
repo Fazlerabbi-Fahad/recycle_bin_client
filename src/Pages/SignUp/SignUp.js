@@ -1,15 +1,48 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import Banner from '../Shared/Banner/Banner';
 import Button from '../Shared/Button/Button';
 import { FaGoogle } from "react-icons/fa";
+import { AuthContext } from '../../Context/AuthProvider';
+import toast from 'react-hot-toast';
 
 const SignUp = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
+    const { createUser, signInWithGoogle, updateUser } = useContext(AuthContext);
 
     const handleSignUp = data => {
-        console.log(data);
+        createUser(data.email, data.password)
+            .then(result => {
+                toast.success('Account created successfully')
+                const profile = {
+                    displayName: data.name,
+                    role: data.role,
+                    verified: false
+                }
+
+                updateUser(profile)
+                    .then(result => {
+
+                    })
+                    .catch(error => toast.error(error))
+            })
+            .catch(error => toast.error(error))
+    }
+
+    const handleSignInWithGoogle = () => {
+        signInWithGoogle()
+            .then(result => {
+                toast.success('Account created successfully')
+                const profile = {
+                    role: 'Buyer',
+                    verified: false
+                }
+                updateUser(profile)
+                    .then(result => { })
+                    .catch(error => toast.error(error))
+            })
+            .catch(error => toast.error(error))
     }
     return (
         <div>
@@ -67,7 +100,8 @@ const SignUp = () => {
                     </form>
                     <p>Already Have an Account? <Link className='text-secondary' to='/login' >Login</Link></p>
                     <div className="divider">OR</div>
-                    <Button><FaGoogle className='mr-2' />Sign Up With Google</Button>
+                    <Link onClick={handleSignInWithGoogle}><Button><FaGoogle className='mr-2' />Sign Up With Google</Button></Link>
+
                 </div>
             </div >
         </div >

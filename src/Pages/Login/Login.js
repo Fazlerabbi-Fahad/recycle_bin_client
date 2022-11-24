@@ -1,16 +1,32 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import Banner from '../Shared/Banner/Banner';
 import Button from "../Shared/Button/Button";
 import { FaGoogle } from "react-icons/fa";
+import { AuthContext } from '../../Context/AuthProvider';
+import toast from 'react-hot-toast';
 
 const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
+    const { logIn, signInWithGoogle } = useContext(AuthContext);
 
     const handleLogin = data => {
-        console.log(data);
+        logIn(data.email, data.password)
+            .then(result => {
+                toast.success('Log In Successful')
+            })
+            .catch(error => toast.error(error))
     }
+
+    const handleSignInWithGoogle = () => {
+        signInWithGoogle()
+            .then(result => {
+                toast.success('Log In Successful')
+            })
+            .catch(error => toast.error(error))
+    }
+
     return (
         <div>
             <Banner>
@@ -51,7 +67,7 @@ const Login = () => {
                     </form>
                     <p>New to RecycleBIN? <Link className='text-secondary' to='/signup' >Create New Account</Link></p>
                     <div className="divider">OR</div>
-                    <Button><FaGoogle className='mr-2' />Sign Up With Google</Button>
+                    <Link onClick={handleSignInWithGoogle}><Button><FaGoogle className='mr-2' />Sign Up With Google</Button></Link>
                 </div>
             </div >
         </div>

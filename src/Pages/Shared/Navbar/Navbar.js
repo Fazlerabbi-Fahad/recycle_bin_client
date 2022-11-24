@@ -1,14 +1,35 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Button from "../Button/Button";
 import Logo from "../../../Asssests/Images/Logo.png";
+import { AuthContext } from '../../../Context/AuthProvider';
+import toast from 'react-hot-toast';
 
 const Navbar = () => {
+    const { user, logOut } = useContext(AuthContext);
+
+    const handleLogOut = () => {
+        logOut()
+            .then(result => {
+                toast.success('Logged Out Successfully')
+            })
+            .catch(error => toast.error(error))
+    }
 
     const menuItems = <>
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/blog'>Blog</Link></li>
         <li><Link to='/contact'>Contact</Link></li>
+        {
+            user?.displayName ?
+                <p className='m-3'>{user?.displayName}</p>
+                :
+                <p className='m-3'>{user?.email}</p>
+        }
+        {
+            user?.photoURL &&
+            <img src={user?.photoURL} className='w-10 rounded-full' alt="" />
+        }
     </>
     return (
         <div className="navbar bg-gradient-to-r from-primary to-accent text-white uppercase absolute lg:top-5 lg:max-w-[1200px] lg:left-10 lg:rounded-lg">
@@ -29,9 +50,14 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <Link to='/login'>
-                    <Button>Login</Button>
-                </Link>
+                {
+                    user?.email ?
+                        <Link onClick={handleLogOut} className='mr-3'><Button>Log Out</Button></Link>
+                        :
+                        <Link className='mr-3' to='/login'><Button>Login</Button></Link>
+                }
+
+
             </div>
         </div>
     );
