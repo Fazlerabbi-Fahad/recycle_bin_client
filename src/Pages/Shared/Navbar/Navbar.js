@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from "../Button/Button";
+import Logo from "../../../Asssests/Images/Logo.png";
 
 const Navbar = () => {
 
@@ -20,7 +21,7 @@ const Navbar = () => {
                         {menuItems}
                     </ul>
                 </div>
-                <Link className="btn btn-ghost normal-case text-xl">RecycleBIN</Link>
+                <Link className="btn btn-ghost normal-case text-2xl font-bold"><img className='w-10' src={`${Logo}`} alt='' />Recycle<span className='text-accent'>BIN</span></Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
