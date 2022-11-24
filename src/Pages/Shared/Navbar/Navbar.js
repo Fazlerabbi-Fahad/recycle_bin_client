@@ -21,6 +21,16 @@ const Navbar = () => {
         <li><Link to='/blog'>Blog</Link></li>
         <li><Link to='/contact'>Contact</Link></li>
         {
+            user?.email &&
+            <div className="dropdown dropdown-hover">
+                <li><Link tabIndex={0} to='/dashboard'>Dashboard</Link></li>
+                <ul tabIndex={0} className="dropdown-content menu p-2 shadow rounded-box w-52">
+                    <li><a>Item 1</a></li>
+                    <li><a>Item 2</a></li>
+                </ul>
+            </div>
+        }
+        {
             user?.displayName ?
                 <p className='m-3'>{user?.displayName}</p>
                 :

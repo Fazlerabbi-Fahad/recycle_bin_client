@@ -19,7 +19,7 @@ const Categories = () => {
                 {
                     categories.map(category =>
                         <Link to={`/categories/${category.id}`}>
-                            <div className="card w-96 h-[500px] image-full ">
+                            <div className="card lg:w-96 h-[500px] image-full ">
                                 <figure><img src={category.img} alt={category.name} /></figure>
                                 <div className="card-body">
                                     <h2 className="card-title text-2xl font-bold">{category.name}</h2>

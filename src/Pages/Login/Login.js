@@ -17,6 +17,8 @@ const Login = () => {
     const handleLogin = data => {
         logIn(data.email, data.password)
             .then(result => {
+                setLoading(true)
+                setLoading(false)
                 navigate(from, { replace: true })
                 toast.success('Log In Successful')
 

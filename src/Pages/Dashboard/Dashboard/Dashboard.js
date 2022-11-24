@@ -1,7 +1,7 @@
 import React from 'react';
-import Banner from '../../../Shared/Banner/Banner';
+import Banner from "../../Shared/Banner/Banner";
 
-const Category = () => {
+const Dashboard = () => {
     return (
         <div>
             <Banner>
@@ -12,4 +12,4 @@ const Category = () => {
     );
 };
 
-export default Category;
+export default Dashboard;

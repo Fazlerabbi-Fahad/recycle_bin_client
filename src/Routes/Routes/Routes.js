@@ -7,6 +7,7 @@ import Login from "../../Pages/Login/Login";
 import SignUp from "../../Pages/SignUp/SignUp";
 import Category from "../../Pages/Home/Categories/Category/Category";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import Dashboard from "../../Pages/Dashboard/Dashboard/Dashboard";
 
 const routes = createBrowserRouter([
     {
@@ -28,6 +29,10 @@ const routes = createBrowserRouter([
             {
                 path: '/categories/:id',
                 element: <PrivateRoute><Category></Category></PrivateRoute>
+            },
+            {
+                path: '/dashboard',
+                element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>
             },
             {
                 path: '/contact',
