@@ -5,6 +5,8 @@ import Blog from "../../Pages/Blog/Blog";
 import Contact from "../../Pages/Contact/Contact";
 import Login from "../../Pages/Login/Login";
 import SignUp from "../../Pages/SignUp/SignUp";
+import Category from "../../Pages/Home/Categories/Category/Category";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const routes = createBrowserRouter([
     {
@@ -22,6 +24,10 @@ const routes = createBrowserRouter([
             {
                 path: '/blog',
                 element: <Blog></Blog>
+            },
+            {
+                path: '/categories/:id',
+                element: <PrivateRoute><Category></Category></PrivateRoute>
             },
             {
                 path: '/contact',
