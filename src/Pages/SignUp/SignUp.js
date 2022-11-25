@@ -42,7 +42,7 @@ const SignUp = () => {
             .then(result => {
                 toast.success('Account created successfully')
                 const profile = {
-                    role: 'Buyer',
+                    role: 'buyer',
                     verified: false
                 }
                 updateUser(profile)
@@ -50,7 +50,7 @@ const SignUp = () => {
                         const user = result.user;
                         const userInfo = {
                             displayName: user.displayName,
-                            role: "Buyer",
+                            role: "buyer",
                             verified: false,
                             email: user.email
                         }
