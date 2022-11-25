@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../../Context/AuthProvider';
 
 const BookingModal = ({ book }) => {
     const { register, handleSubmit } = useForm();
     const { user } = useContext(AuthContext);
     const { name, originalPrice } = book;
+    const navigate = useNavigate();
 
     const handleBookingSubmit = data => {
         const booking = {
@@ -17,8 +19,25 @@ const BookingModal = ({ book }) => {
             phone: data.phone,
             meeting: data.meetingLocation
         }
-        console.log(booking);
-        toast.success('Product booked successfully')
+
+        fetch('http://localhost:5000/bookings', {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(booking)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    navigate('/myorders')
+                    toast.success("Product is booked")
+                }
+            })
+            .catch(error => toast.error(error))
+
+
+
     }
     return (
         <div>

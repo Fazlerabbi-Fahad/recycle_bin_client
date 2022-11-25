@@ -21,14 +21,16 @@ const Navbar = () => {
         <li><Link to='/blog'>Blog</Link></li>
         <li><Link to='/contact'>Contact</Link></li>
         {
-            user?.email &&
-            <div className="dropdown dropdown-hover">
-                <li><Link tabIndex={0} to='/dashboard'>Dashboard</Link></li>
-                <ul tabIndex={0} className="dropdown-content menu p-2 shadow rounded-box w-52">
-                    <li><Link to='/dashboard/myorders'>My Order</Link></li>
-                    <li><a>My Products</a></li>
-                </ul>
-            </div>
+            user?.email ?
+                <li><Link to='/myorders'>My Order</Link></li>
+                :
+                <div className="dropdown dropdown-hover">
+                    <li><Link tabIndex={0} to='/dashboard'>Dashboard</Link></li>
+                    <ul tabIndex={0} className="dropdown-content menu p-2 shadow rounded-box w-52">
+
+                        <li><a>My Products</a></li>
+                    </ul>
+                </div>
         }
         {
             user?.displayName ?
