@@ -18,12 +18,12 @@ const Categories = () => {
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-10 '>
                 {
                     categories.map(category =>
-                        <Link to={`/categories/${category.id}`}>
-                            <div className="card lg:w-96 h-[500px] image-full ">
+                        <Link to={`/categories/${category._id}`}>
+                            <div className="card lg:w-96 h-[500px] image-full hover:w-150 hover:h-[530px]">
                                 <figure><img src={category.img} alt={category.name} /></figure>
                                 <div className="card-body">
-                                    <h2 className="card-title text-2xl font-bold">{category.name}</h2>
-                                    <p>{category.types}. you can find here. This is trustworthy and affordable.We will always help you. Want to see the products? Just click anywhere in this box. </p>
+                                    <h2 className="card-title text-2xl font-bold text-white">{category.name}</h2>
+                                    <p className='text-white'>{category.types}. you can find here. This is trustworthy and affordable.We will always help you. Want to see the products? <strong className='text-xl'>Just click anywhere in this box.</strong> </p>
                                 </div>
                             </div>
                         </Link>)

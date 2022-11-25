@@ -25,8 +25,8 @@ const Navbar = () => {
             <div className="dropdown dropdown-hover">
                 <li><Link tabIndex={0} to='/dashboard'>Dashboard</Link></li>
                 <ul tabIndex={0} className="dropdown-content menu p-2 shadow rounded-box w-52">
-                    <li><a>Item 1</a></li>
-                    <li><a>Item 2</a></li>
+                    <li><Link to='/dashboard/myorders'>My Order</Link></li>
+                    <li><a>My Products</a></li>
                 </ul>
             </div>
         }
