@@ -33,7 +33,7 @@ const Login = () => {
                 toast.success('Account created successfully')
                 const userInfo = {
                     displayName: user.displayName,
-                    role: "Buyer",
+                    role: "buyer",
                     verified: false,
                     email: user.email
                 }

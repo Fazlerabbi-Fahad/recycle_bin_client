@@ -12,7 +12,6 @@ const Dashboard = () => {
                 <h1 className="mb-5 text-5xl font-bold text-white uppercase">Welcome to {user?.displayName}</h1>
                 <p className="mb-5 text-white"></p>
             </Banner>
-
         </div>
     );
 };

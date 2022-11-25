@@ -9,42 +9,56 @@ import { useQuery } from '@tanstack/react-query';
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
 
-
     const { data = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/users?email=${user?.email}`)
+            const res = await fetch(`http://localhost:5000/users?email=${user.email}`)
             const data = await res.json()
             return data;
         }
     })
 
+    console.log(data[0]?.role);
 
     const handleLogOut = () => {
         logOut()
             .then(result => {
                 toast.success('Logged Out Successfully')
+                refetch();
             })
             .catch(error => toast.error(error))
     }
-    refetch();
+
     const menuItems = <>
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/blog'>Blog</Link></li>
         <li><Link to='/contact'>Contact</Link></li>
-
-        < li > <Link to='/myorders'>My Order</Link></li>
-        < li > <Link to='/myproducts'>My product</Link></li>
-
-        <div className="dropdown dropdown-hover">
-            <li><Link tabIndex={0} to='/dashboard'>Dashboard</Link></li>
-            <ul tabIndex={0} className="dropdown-content menu p-2 shadow rounded-box w-52">
-                <li><Link to='/addproduct'>AddProducts</Link></li>
-                <li><Link to='/allsellers'>All Sellers</Link></li>
-                <li><Link to='/allbuyers'>All Buyers</Link></li>
-            </ul>
-        </div>
-
+        {
+            user?.email && data[0]?.role === "buyer" &&
+            < li > <Link to='/myorders'>My Orders</Link></li>
+        }
+        {
+            user?.email && data[0]?.role === "seller" &&
+            <div className="dropdown dropdown-hover">
+                <li><Link tabIndex={0} to='/dashboard'>Dashboard</Link></li>
+                <ul tabIndex={0} className="dropdown-content menu p-2 shadow rounded-box w-52 bg-secondary">
+                    <li><Link to='/addproduct'>Add Product</Link></li>
+                    <li><Link to='/myproducts'>My Products</Link></li>
+                </ul>
+            </div>
+        }
+        {
+            user?.email && data[0]?.role === "admin" &&
+            <div className="dropdown dropdown-hover">
+                <li><Link tabIndex={0} to='/dashboard'>Dashboard</Link></li>
+                <ul tabIndex={0} className="dropdown-content menu p-2 shadow rounded-box w-52 bg-secondary">
+                    <li><Link to='/addproduct'>Add Product</Link></li>
+                    <li><Link to='/myproducts'>My Products</Link></li>
+                    <li><Link to='/allsellers'>All Sellers</Link></li>
+                    <li><Link to='/allbuyers'>All Buyers</Link></li>
+                </ul>
+            </div>
+        }
         {
             user?.displayName ?
                 <p className='m-3'>{user?.displayName}</p>
@@ -56,6 +70,7 @@ const Navbar = () => {
             <img src={user?.photoURL} className='w-10 rounded-full' alt="" />
         }
     </>
+    refetch();
     return (
         <div className="navbar bg-gradient-to-r from-primary to-accent text-white uppercase absolute lg:top-5 lg:max-w-[1200px] lg:left-10 lg:rounded-lg">
             <div className="navbar-start ">
