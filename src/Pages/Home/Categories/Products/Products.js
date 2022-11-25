@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Products = ({ product, setBook }) => {
-    const { img, name, location, resalePrice, originalPrice, yearsOfUse, postedAt, sellerName } = product;
+    const { img, name, location, resalePrice, originalPrice, yearsOfUse, sellerName } = product;
     return (
         <div className="card w-96 glass text-white">
             <figure><img className='h-[400px]' src={img} alt="car!" /></figure>
@@ -11,7 +11,6 @@ const Products = ({ product, setBook }) => {
                 <p><strong>Resale Price:</strong> {resalePrice}tk.</p>
                 <p><strong>Original Price:</strong> {originalPrice}tk.</p>
                 <p><strong>Used for:</strong> {yearsOfUse}years</p>
-                <p><strong>Posted:</strong> {postedAt.slice(11, 19)};{postedAt.slice(1, 10)}</p>
                 <p><strong>Seller Name:</strong> {sellerName}</p>
                 <div className="card-actions justify-end">
                     <label htmlFor="recycleModal"

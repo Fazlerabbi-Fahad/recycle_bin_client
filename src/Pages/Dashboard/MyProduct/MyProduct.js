@@ -1,23 +1,29 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
-import { AuthContext } from '../../../../Context/AuthProvider';
-import Banner from '../../../Shared/Banner/Banner';
+import { AuthContext } from '../../../Context/AuthProvider';
+import Banner from '../../Shared/Banner/Banner';
 
-const MyOrder = () => {
-    const { user } = useContext(AuthContext)
-    const { data: orders = [] } = useQuery({
-        queryKey: ['orders'],
+const MyProduct = () => {
+    const { user } = useContext(AuthContext);
+
+    const url = `http://localhost:5000/products?email=${user?.email}`;
+
+    const { data: products = [] } = useQuery({
+        queryKey: ['products', user?.email],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/bookings')
-            const data = res.json()
+            const res = await fetch(url)
+            const data = await res.json()
             return data
         }
     })
+
+    console.log(products);
+
     return (
         <div>
             <Banner>
                 <h1 className="mb-5 text-5xl font-bold text-white uppercase">Hello {user?.displayName}</h1>
-                <p className="mb-5 text-white"></p>
+                <p className="mb-5 text-white">Welcome to {user?.role || 'this'} section. Let's explore.</p>
             </Banner>
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
@@ -32,13 +38,12 @@ const MyOrder = () => {
                     <tbody>
 
                         {
-                            orders.map((order, i) =>
+                            products.map((product, i) =>
                                 <tr>
                                     <th>{i + 1}</th>
-                                    <td>{order.product}</td>
-                                    <td>{order.price}</td>
-                                    <td><button className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white uppercase'>Pay</button></td>
-
+                                    <td>{product.name}</td>
+                                    <td>{product.resalePrice}</td>
+                                    <td><button className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white uppercase'>Delete</button></td>
                                 </tr>
                             )
                         }
@@ -47,8 +52,8 @@ const MyOrder = () => {
 
                 </table>
             </div>
-        </div >
+        </div>
     );
 };
 
-export default MyOrder;
+export default MyProduct;

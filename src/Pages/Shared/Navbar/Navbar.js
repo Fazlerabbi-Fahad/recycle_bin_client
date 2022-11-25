@@ -34,11 +34,12 @@ const Navbar = () => {
         <li><Link to='/contact'>Contact</Link></li>
 
         < li > <Link to='/myorders'>My Order</Link></li>
+        < li > <Link to='/myproducts'>add product</Link></li>
 
         <div className="dropdown dropdown-hover">
             <li><Link tabIndex={0} to='/dashboard'>Dashboard</Link></li>
             <ul tabIndex={0} className="dropdown-content menu p-2 shadow rounded-box w-52">
-                <li><Link>My Products</Link></li>
+                <li><Link to='/addproduct'>My Products</Link></li>
                 <li><Link>Add Products</Link></li>
             </ul>
         </div>
