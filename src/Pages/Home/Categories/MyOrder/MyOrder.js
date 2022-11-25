@@ -5,7 +5,7 @@ import Banner from '../../../Shared/Banner/Banner';
 
 const MyOrder = () => {
     const { user } = useContext(AuthContext)
-    const { data: orders = [] } = useQuery({
+    const { data: orders = [], isLoading, refetch } = useQuery({
         queryKey: ['orders'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/bookings')
@@ -13,6 +13,8 @@ const MyOrder = () => {
             return data
         }
     })
+
+
     return (
         <div>
             <Banner>
