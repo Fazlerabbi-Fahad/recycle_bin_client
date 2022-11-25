@@ -29,7 +29,33 @@ const Login = () => {
     const handleSignInWithGoogle = () => {
         signInWithGoogle()
             .then(result => {
+                const user = result.user;
+                toast.success('Account created successfully')
+                const userInfo = {
+                    displayName: user.displayName,
+                    role: "Buyer",
+                    verified: false,
+                    email: user.email
+                }
+                addUsers(userInfo)
                 toast.success('Log In Successful')
+            })
+            .catch(error => toast.error(error))
+    }
+    const addUsers = profile => {
+        fetch('http://localhost:5000/users', {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(profile)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast.success('User added successfully')
+                    navigate('/')
+                }
             })
             .catch(error => toast.error(error))
     }

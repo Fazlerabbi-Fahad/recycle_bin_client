@@ -4,9 +4,21 @@ import Button from "../Button/Button";
 import Logo from "../../../Asssests/Images/Logo.png";
 import { AuthContext } from '../../../Context/AuthProvider';
 import toast from 'react-hot-toast';
+import { useQuery } from '@tanstack/react-query';
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
+
+
+    const { data = [], refetch } = useQuery({
+        queryKey: ['users'],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:5000/users?email=${user?.email}`)
+            const data = await res.json()
+            return data;
+        }
+    })
+
 
     const handleLogOut = () => {
         logOut()
@@ -15,23 +27,22 @@ const Navbar = () => {
             })
             .catch(error => toast.error(error))
     }
-
+    refetch();
     const menuItems = <>
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/blog'>Blog</Link></li>
         <li><Link to='/contact'>Contact</Link></li>
-        {
-            user?.email ?
-                <li><Link to='/myorders'>My Order</Link></li>
-                :
-                <div className="dropdown dropdown-hover">
-                    <li><Link tabIndex={0} to='/dashboard'>Dashboard</Link></li>
-                    <ul tabIndex={0} className="dropdown-content menu p-2 shadow rounded-box w-52">
 
-                        <li><a>My Products</a></li>
-                    </ul>
-                </div>
-        }
+        < li > <Link to='/myorders'>My Order</Link></li>
+
+        <div className="dropdown dropdown-hover">
+            <li><Link tabIndex={0} to='/dashboard'>Dashboard</Link></li>
+            <ul tabIndex={0} className="dropdown-content menu p-2 shadow rounded-box w-52">
+                <li><Link>My Products</Link></li>
+                <li><Link>Add Products</Link></li>
+            </ul>
+        </div>
+
         {
             user?.displayName ?
                 <p className='m-3'>{user?.displayName}</p>

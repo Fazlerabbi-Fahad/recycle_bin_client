@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Banner from '../Shared/Banner/Banner';
 import Button from '../Shared/Button/Button';
 import { FaGoogle } from "react-icons/fa";
@@ -10,6 +10,7 @@ import toast from 'react-hot-toast';
 const SignUp = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { createUser, signInWithGoogle, updateUser } = useContext(AuthContext);
+    const navigate = useNavigate()
 
     const handleSignUp = data => {
         createUser(data.email, data.password)
@@ -23,7 +24,13 @@ const SignUp = () => {
 
                 updateUser(profile)
                     .then(result => {
-
+                        const userInfo = {
+                            displayName: data.name,
+                            role: data.role,
+                            verified: false,
+                            email: data.email
+                        }
+                        addUsers(userInfo)
                     })
                     .catch(error => toast.error(error))
             })
@@ -39,8 +46,35 @@ const SignUp = () => {
                     verified: false
                 }
                 updateUser(profile)
-                    .then(result => { })
+                    .then(result => {
+                        const user = result.user;
+                        const userInfo = {
+                            displayName: user.displayName,
+                            role: "Buyer",
+                            verified: false,
+                            email: user.email
+                        }
+                        addUsers(userInfo)
+                    })
                     .catch(error => toast.error(error))
+            })
+            .catch(error => toast.error(error))
+    }
+
+    const addUsers = profile => {
+        fetch('http://localhost:5000/users', {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(profile)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast.success('User added successfully')
+                    navigate('/')
+                }
             })
             .catch(error => toast.error(error))
     }
