@@ -128,10 +128,12 @@ const AddProduct = () => {
                         </div>
                         <div className="form-control w-full max-w-xs">
                             <label className="label">
-                                <span className="label-text text-white">Seller Name</span>
+                                <span className="label-text text-white">Seller Name
+                                </span>
                             </label>
                             <input type='text' {...register("sellerName", { required: "Seller name is required" })}
-                                placeholder="Seller Name" defaultValue={user?.displayName} readOnly className="input input-bordered w-full max-w-xs text-black" />
+                                placeholder="Seller Name" defaultValue={user?.displayName}
+                                readOnly className="input input-bordered w-full max-w-xs text-black" />
                         </div>
                         <div className="form-control w-full max-w-xs">
                             <label className="label">
@@ -145,7 +147,7 @@ const AddProduct = () => {
                                 <span className="label-text text-white">Verify</span>
                             </label>
                             <input type='boolean' {...register("verify", { required: "Verify is required" })}
-                                placeholder="Verified" defaultValue={false} readOnly className="input input-bordered w-full max-w-xs text-black" />
+                                placeholder="Verified" defaultValue={false} readOnly className="file-input file-input-ghost w-full max-w-xs text-black" />
                         </div>
 
 

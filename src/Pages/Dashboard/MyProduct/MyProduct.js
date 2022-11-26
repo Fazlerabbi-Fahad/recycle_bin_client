@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
-import Loader from "../../../Components/Loader";
 import { AuthContext } from '../../../Context/AuthProvider';
 import Banner from '../../Shared/Banner/Banner';
 
@@ -10,7 +9,7 @@ const MyProduct = () => {
 
     const url = `http://localhost:5000/products?email=${user?.email}`;
 
-    const { data: products = [], isLoading, refetch } = useQuery({
+    const { data: products = [], refetch } = useQuery({
         queryKey: ['products', user?.email],
         queryFn: async () => {
             const res = await fetch(url)
@@ -34,9 +33,7 @@ const MyProduct = () => {
             .catch(error => toast.error(error.message))
     }
 
-    if (isLoading) {
-        return <Loader></Loader>
-    }
+
 
     return (
         <div>

@@ -2,7 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --my-color: #fff;
+  /* or any other variables/style */
+}
+
+[data-theme='dark'] {
+  --my-color: #000;
+}
+
+[data-theme='light'] {
+  --my-color: #ffffff;
+}
+
 body {
+  background-color: var(--my-color);
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',

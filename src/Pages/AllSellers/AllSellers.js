@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
-import Loader from '../../Components/Loader';
 import Verified from '../../Components/Verified';
 import { AuthContext } from '../../Context/AuthProvider';
 import Banner from '../Shared/Banner/Banner';
@@ -10,7 +9,7 @@ import Banner from '../Shared/Banner/Banner';
 const AllSellers = () => {
     const { user, setLoading } = useContext(AuthContext)
 
-    const { data: sellers = [], isLoading, refetch } = useQuery({
+    const { data: sellers = [], refetch } = useQuery({
         queryKey: ['seller'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/users/seller')
@@ -49,9 +48,7 @@ const AllSellers = () => {
     }
 
 
-    if (isLoading) {
-        return <Loader></Loader>
-    }
+
 
     return (
         <div>
@@ -76,10 +73,10 @@ const AllSellers = () => {
                             sellers.map((seller, i) =>
                                 <tr>
                                     <th>{i + 1}</th>
-                                    <td>{seller.displayName}
-                                        {seller?.verified &&
+                                    <td className='flex items-center'>{seller.displayName}
+                                        <p>{seller?.verified &&
                                             <Verified></Verified>
-                                        }</td>
+                                        }</p></td>
                                     <td>{seller.email}</td>
                                     <td>
                                         {

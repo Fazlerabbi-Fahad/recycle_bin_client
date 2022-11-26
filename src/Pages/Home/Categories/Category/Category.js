@@ -10,6 +10,8 @@ const Category = () => {
     const [book, setBook] = useState([]);
     const category = useLoaderData();
     const { setLoading } = useContext(AuthContext)
+
+
     setLoading(false)
     return (
         <div>

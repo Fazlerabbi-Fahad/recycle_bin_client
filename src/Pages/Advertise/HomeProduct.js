@@ -1,18 +1,17 @@
 import React, { useContext } from 'react';
-import { AuthContext } from '../../../../Context/AuthProvider';
-import './Product.css';
+import { AuthContext } from '../../Context/AuthProvider';
 
-const Products = ({ product, setBook }) => {
+const Products = ({ product, setBook, i }) => {
     const { img, name, location, resalePrice, originalPrice, yearsOfUse, sellerName, advertised } = product;
     const { setLoading } = useContext(AuthContext)
 
     setLoading(false)
 
     return (
-        <div>
-            <figure><img className='w-full h-[450px] object-cover object-center rounded-lg shadow-md' src={img} alt={name} /></figure>
+        <div className=' w-full p-4'>
+            <figure><img className='w-full h-[400px] object-cover object-center rounded-lg shadow-md' src={img} alt={name} /></figure>
 
-            <div class="relative px-4 -mt-[100px]  ">
+            <div class="relative px-4 -mt-[100px]">
                 <div class="bg-white p-6 rounded-lg shadow-lg">
                     <div class="flex items-baseline">
                         {advertised ?

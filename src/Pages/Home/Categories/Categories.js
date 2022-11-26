@@ -22,7 +22,7 @@ const Categories = () => {
                 {
                     categories.map(category =>
                         <Link to={`/categories/${category._id}`}>
-                            <div className="card lg:w-96 h-[500px] image-full hover:w-150 hover:h-[530px]">
+                            <div className="card lg:w-96 h-[400px] rounded-full hover:image-full hover:w-150 hover:h-[430px]">
                                 <figure><img src={category.img} alt={category.name} /></figure>
                                 <div className="card-body">
                                     <h2 className="card-title text-2xl font-bold text-white">{category.name}</h2>
