@@ -2,6 +2,7 @@ import React from 'react';
 
 const Products = ({ product, setBook }) => {
     const { img, name, location, resalePrice, originalPrice, yearsOfUse, sellerName } = product;
+
     return (
         <div className="card w-96 glass text-white">
             <figure><img className='h-[400px]' src={img} alt="car!" /></figure>

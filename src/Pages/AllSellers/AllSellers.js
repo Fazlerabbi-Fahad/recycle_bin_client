@@ -1,8 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
+import Verified from '../../Components/Verified';
 import { AuthContext } from '../../Context/AuthProvider';
 import Banner from '../Shared/Banner/Banner';
+
 
 const AllSellers = () => {
     const { user } = useContext(AuthContext)
@@ -30,6 +32,19 @@ const AllSellers = () => {
             .catch(error => toast.error(error.message))
     }
 
+    const handleVerify = id => {
+        fetch(`http://localhost:5000/users/${id}`, {
+            method: "PUT"
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    toast.success(`${user?.displayName} is now verified`)
+                    refetch()
+                }
+            })
+    }
+
     return (
         <div>
             <Banner>
@@ -43,6 +58,7 @@ const AllSellers = () => {
                             <th></th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Verified</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -52,8 +68,17 @@ const AllSellers = () => {
                             sellers.map((seller, i) =>
                                 <tr>
                                     <th>{i + 1}</th>
-                                    <td>{seller.displayName}</td>
+                                    <td>{seller.displayName}
+                                        {seller?.verified &&
+                                            <Verified></Verified>
+                                        }</td>
                                     <td>{seller.email}</td>
+                                    <td>
+                                        {
+                                            !seller?.verified &&
+                                            <button onClick={() => handleVerify(seller._id)} className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white uppercase'>Verify</button>
+                                        }
+                                    </td>
                                     <td><button onClick={() => handleDelete(seller._id)} className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white uppercase'>Delete</button></td>
                                 </tr>
                             )

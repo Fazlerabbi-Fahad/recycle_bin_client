@@ -6,6 +6,7 @@ import { AuthContext } from '../../../Context/AuthProvider';
 import toast from 'react-hot-toast';
 import { useQuery } from '@tanstack/react-query';
 
+
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
 
@@ -17,9 +18,8 @@ const Navbar = () => {
             return data;
         }
     })
-
-    console.log(data[0]?.role);
-
+    refetch()
+    console.log(data);
     const handleLogOut = () => {
         logOut()
             .then(result => {
@@ -34,40 +34,40 @@ const Navbar = () => {
         <li><Link to='/blog'>Blog</Link></li>
         <li><Link to='/contact'>Contact</Link></li>
         {
-            user?.email && data[0]?.role === "buyer" &&
-            < li > <Link to='/myorders'>My Orders</Link></li>
-        }
-        {
-            user?.email && data[0]?.role === "seller" &&
-            <div className="dropdown dropdown-hover">
-                <li><Link tabIndex={0} to='/dashboard'>Dashboard</Link></li>
-                <ul tabIndex={0} className="dropdown-content menu p-2 shadow rounded-box w-52 bg-secondary">
-                    <li><Link to='/addproduct'>Add Product</Link></li>
-                    <li><Link to='/myproducts'>My Products</Link></li>
-                </ul>
-            </div>
-        }
-        {
-            user?.email && data[0]?.role === "admin" &&
-            <div className="dropdown dropdown-hover">
-                <li><Link tabIndex={0} to='/dashboard'>Dashboard</Link></li>
-                <ul tabIndex={0} className="dropdown-content menu p-2 shadow rounded-box w-52 bg-secondary">
-                    <li><Link to='/addproduct'>Add Product</Link></li>
-                    <li><Link to='/myproducts'>My Products</Link></li>
-                    <li><Link to='/allsellers'>All Sellers</Link></li>
-                    <li><Link to='/allbuyers'>All Buyers</Link></li>
-                </ul>
-            </div>
-        }
-        {
-            user?.displayName ?
-                <p className='m-3'>{user?.displayName}</p>
+            user?.email && data[0]?.role === "admin" ?
+                <div className="dropdown dropdown-hover">
+                    <li><Link tabIndex={0} to='/dashboard'>Dashboard</Link></li>
+                    <ul tabIndex={0} className="dropdown-content menu p-2 shadow rounded-box w-52 bg-secondary">
+                        <li><Link to='/addproduct'>Add Product</Link></li>
+                        <li><Link to='/myproducts'>My Products</Link></li>
+                        <li><Link to='/allsellers'>All Sellers</Link></li>
+                        <li><Link to='/allbuyers'>All Buyers</Link></li>
+                    </ul>
+                </div>
+
                 :
-                <p className='m-3'>{user?.email}</p>
+                user?.email && data[0]?.role === "seller" ?
+                    <div className="dropdown dropdown-hover">
+                        <li><Link tabIndex={0} to='/dashboard'>Dashboard</Link></li>
+                        <ul tabIndex={0} className="dropdown-content menu p-2 shadow rounded-box w-52 bg-secondary">
+                            <li><Link to='/addproduct'>Add Product</Link></li>
+                            <li><Link to='/myproducts'>My Products</Link></li>
+                        </ul>
+                    </div>
+                    :
+                    < li > <Link to='/myorders'>My Orders</Link></li>
+
+        }
+
+        {
+            user?.displayName &&
+            <p className='m-3'>{user?.displayName}</p>
+
         }
         {
             user?.photoURL &&
             <img src={user?.photoURL} className='w-10 rounded-full' alt="" />
+
         }
     </>
     refetch();

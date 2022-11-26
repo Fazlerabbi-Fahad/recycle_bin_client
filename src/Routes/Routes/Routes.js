@@ -13,6 +13,7 @@ import MyProduct from "../../Pages/Dashboard/MyProduct/MyProduct";
 import AllSellers from "../../Pages/AllSellers/AllSellers";
 import AllBuyers from "../../Pages/AllBuyers/AllBuyers";
 import Dashboard from "../../Pages/Dashboard/Dashboard/Dashboard";
+import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 
 const routes = createBrowserRouter([
     {
@@ -74,6 +75,10 @@ const routes = createBrowserRouter([
                 element: <SignUp></SignUp>
             }
         ]
+    },
+    {
+        path: '/*',
+        element: <ErrorPage></ErrorPage>
     }
 ])
 

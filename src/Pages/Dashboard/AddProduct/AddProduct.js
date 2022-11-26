@@ -29,7 +29,8 @@ const AddProduct = () => {
                         categories_ID: data.category,
                         yearsOfUse: data.yearsOfUse,
                         sellerName: data.sellerName,
-                        email: data.sellerEmail
+                        email: data.sellerEmail,
+                        verified: data.verify
                     }
 
                     fetch('http://localhost:5000/products', {
@@ -41,7 +42,12 @@ const AddProduct = () => {
                     })
                         .then(res => res.json())
                         .then(result => {
-                            toast.success(`${data.displayName} is added successfully`);
+                            toast.success(`${user.displayName} is added successfully`);
+                            fetch(`http://localhost:5000/products/${product._id}`, {
+                                method: "PUT"
+                            })
+                                .then(res => res.json())
+                                .then(data => { })
                         })
                 }
             })
@@ -131,6 +137,13 @@ const AddProduct = () => {
                             </label>
                             <input type='file' {...register("img", { required: "Image is required" })}
                                 placeholder="Photo" className="input input-bordered w-full max-w-xs text-black" />
+                        </div>
+                        <div className="form-control w-full max-w-xs">
+                            <label className="label">
+                                <span className="label-text text-white">Verify</span>
+                            </label>
+                            <input type='boolean' {...register("verify", { required: "Verify is required" })}
+                                placeholder="Verified" defaultValue={false} readOnly className="input input-bordered w-full max-w-xs text-black" />
                         </div>
 
 

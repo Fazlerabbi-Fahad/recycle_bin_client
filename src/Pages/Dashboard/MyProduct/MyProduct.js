@@ -32,6 +32,7 @@ const MyProduct = () => {
             .catch(error => toast.error(error.message))
     }
 
+
     return (
         <div>
             <Banner>
@@ -46,6 +47,7 @@ const MyProduct = () => {
                             <th>Title</th>
                             <th>Price</th>
                             <th>Action</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,6 +59,9 @@ const MyProduct = () => {
                                     <td>{product.name}</td>
                                     <td>{product.resalePrice}</td>
                                     <td><button onClick={() => handleDelete(product._id)} className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white uppercase'>Delete</button></td>
+                                    <td>
+
+                                    </td>
                                 </tr>
                             )
                         }

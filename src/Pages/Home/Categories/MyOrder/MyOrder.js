@@ -8,12 +8,12 @@ const MyOrder = () => {
     const { data: orders = [], isLoading, refetch } = useQuery({
         queryKey: ['orders'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/bookings')
+            const res = await fetch(`http://localhost:5000/bookings?email=${user?.email}`)
             const data = res.json()
             return data
         }
     })
-
+    refetch()
 
     return (
         <div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Advertise from '../../Advertise/Advertise';
 import Banner from '../../Shared/Banner/Banner';
 import ContactUs from '../../Shared/ContactUs/ContactUs';
 import Categories from '../Categories/Categories';
@@ -14,7 +15,9 @@ const Home = () => {
             <div>
                 <Categories></Categories>
             </div>
-            <div>Advertise</div>
+            <div>
+                <Advertise></Advertise>
+            </div>
             <ContactUs></ContactUs>
         </div>
     );
