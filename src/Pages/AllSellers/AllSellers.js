@@ -1,15 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
+import Loader from '../../Components/Loader';
 import Verified from '../../Components/Verified';
 import { AuthContext } from '../../Context/AuthProvider';
 import Banner from '../Shared/Banner/Banner';
 
 
 const AllSellers = () => {
-    const { user } = useContext(AuthContext)
+    const { user, setLoading } = useContext(AuthContext)
 
-    const { data: sellers = [], refetch } = useQuery({
+    const { data: sellers = [], isLoading, refetch } = useQuery({
         queryKey: ['seller'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/users/seller')
@@ -27,6 +28,7 @@ const AllSellers = () => {
                 if (data.deletedCount > 0) {
                     toast.success("User deleted successfully")
                     refetch();
+                    setLoading(false);
                 }
             })
             .catch(error => toast.error(error.message))
@@ -40,9 +42,15 @@ const AllSellers = () => {
             .then(data => {
                 if (data.modifiedCount > 0) {
                     toast.success(`${user?.displayName} is now verified`)
-                    refetch()
+                    refetch();
+                    setLoading(false)
                 }
             })
+    }
+
+
+    if (isLoading) {
+        return <Loader></Loader>
     }
 
     return (

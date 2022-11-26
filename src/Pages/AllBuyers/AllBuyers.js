@@ -1,13 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
+import Loader from '../../Components/Loader';
 import { AuthContext } from '../../Context/AuthProvider';
 import Banner from '../Shared/Banner/Banner';
 
 const AllBuyers = () => {
-    const { user } = useContext(AuthContext)
+    const { user, setLoading } = useContext(AuthContext)
 
-    const { data: Buyers = [], refetch } = useQuery({
+    const { data: Buyers = [], isLoading, refetch } = useQuery({
         queryKey: ['buyer'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/users/buyer')
@@ -25,9 +26,14 @@ const AllBuyers = () => {
                 if (data.deletedCount > 0) {
                     toast.success("User deleted successfully")
                     refetch();
+                    setLoading(false)
                 }
             })
             .catch(error => toast.error(error.message))
+    }
+
+    if (isLoading) {
+        return <Loader></Loader>
     }
 
     return (

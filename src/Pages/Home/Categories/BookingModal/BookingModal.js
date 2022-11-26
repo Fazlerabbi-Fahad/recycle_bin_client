@@ -6,7 +6,7 @@ import { AuthContext } from '../../../../Context/AuthProvider';
 
 const BookingModal = ({ book }) => {
     const { register, handleSubmit } = useForm();
-    const { user } = useContext(AuthContext);
+    const { user, setLoading } = useContext(AuthContext);
     const { name, originalPrice } = book;
     const navigate = useNavigate();
 
@@ -30,6 +30,7 @@ const BookingModal = ({ book }) => {
             .then(res => res.json())
             .then(data => {
                 if (data.acknowledged) {
+                    setLoading(false)
                     navigate('/myorders')
                     toast.success("Product is booked")
                 }

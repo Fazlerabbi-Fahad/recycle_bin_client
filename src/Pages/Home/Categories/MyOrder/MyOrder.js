@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { AuthContext } from '../../../../Context/AuthProvider';
 import Banner from '../../../Shared/Banner/Banner';
+import Loader from "../../../../Components/Loader";
 
 const MyOrder = () => {
     const { user } = useContext(AuthContext)
@@ -14,6 +15,9 @@ const MyOrder = () => {
         }
     })
     refetch()
+    if (isLoading) {
+        return <Loader></Loader>
+    }
 
     return (
         <div>

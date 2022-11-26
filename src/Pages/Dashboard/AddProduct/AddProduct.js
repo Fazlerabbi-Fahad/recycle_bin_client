@@ -6,7 +6,7 @@ import Banner from '../../Shared/Banner/Banner';
 
 const AddProduct = () => {
     const { register, handleSubmit } = useForm();
-    const { user } = useContext(AuthContext);
+    const { user, setLoading } = useContext(AuthContext);
 
     const handleAddProduct = data => {
         const image = data.img[0];
@@ -47,7 +47,9 @@ const AddProduct = () => {
                                 method: "PUT"
                             })
                                 .then(res => res.json())
-                                .then(data => { })
+                                .then(data => {
+                                    setLoading(false)
+                                })
                         })
                 }
             })

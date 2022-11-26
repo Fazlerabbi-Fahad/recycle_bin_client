@@ -10,6 +10,7 @@ import toast from 'react-hot-toast';
 const SignUp = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { createUser, signInWithGoogle, updateUser } = useContext(AuthContext);
+    const { setLoading } = useContext(AuthContext)
     const navigate = useNavigate()
 
     const handleSignUp = data => {
@@ -72,6 +73,7 @@ const SignUp = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.acknowledged) {
+                    setLoading(false)
                     toast.success('User added successfully')
                     navigate('/')
                 }

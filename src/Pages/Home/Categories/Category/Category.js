@@ -9,6 +9,8 @@ const Category = () => {
     const { user } = useContext(AuthContext);
     const [book, setBook] = useState([]);
     const category = useLoaderData();
+    const { setLoading } = useContext(AuthContext)
+    setLoading(false)
     return (
         <div>
             <Banner>

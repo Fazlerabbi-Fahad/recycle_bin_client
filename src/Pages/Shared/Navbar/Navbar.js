@@ -5,12 +5,13 @@ import Logo from "../../../Asssests/Images/Logo.png";
 import { AuthContext } from '../../../Context/AuthProvider';
 import toast from 'react-hot-toast';
 import { useQuery } from '@tanstack/react-query';
+import Loader from '../../../Components/Loader';
 
 
 const Navbar = () => {
-    const { user, logOut } = useContext(AuthContext);
+    const { user, logOut, setLoading } = useContext(AuthContext);
 
-    const { data = [], refetch } = useQuery({
+    const { data = [], isLoading, refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
             const res = await fetch(`http://localhost:5000/users?email=${user.email}`)
@@ -18,15 +19,20 @@ const Navbar = () => {
             return data;
         }
     })
-    refetch()
+
     console.log(data);
     const handleLogOut = () => {
         logOut()
             .then(result => {
                 toast.success('Logged Out Successfully')
                 refetch();
+                setLoading(false)
             })
             .catch(error => toast.error(error))
+    }
+
+    if (isLoading) {
+        return <Loader></Loader>
     }
 
     const menuItems = <>
