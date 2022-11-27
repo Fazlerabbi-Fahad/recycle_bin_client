@@ -1,16 +1,15 @@
-import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../../Context/AuthProvider';
 import Banner from '../../Shared/Banner/Banner';
+import { FaTimes } from "react-icons/fa";
+import { useQuery } from '@tanstack/react-query';
 
 const MyProduct = () => {
     const { user, setLoading } = useContext(AuthContext);
-
-    const url = `http://localhost:5000/products?email=${user?.email}`;
-
+    const url = `http://localhost:5000/products?email=${user?.email}`
     const { data: products = [], refetch } = useQuery({
-        queryKey: ['products', user?.email],
+        queryKey: ['seller'],
         queryFn: async () => {
             const res = await fetch(url)
             const data = await res.json()
@@ -26,14 +25,27 @@ const MyProduct = () => {
             .then(data => {
                 if (data.deletedCount > 0) {
                     toast.success("Product deleted successfully")
-                    refetch();
                     setLoading(false);
+                    refetch()
                 }
             })
             .catch(error => toast.error(error.message))
     }
 
-
+    const handleAdvertised = id => {
+        fetch(`http://localhost:5000/allproducts/${id}`, {
+            method: "PUT"
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.modifiedCount > 0) {
+                    toast.success('See in the homepage')
+                    setLoading(false)
+                    refetch()
+                }
+            })
+    }
 
     return (
         <div>
@@ -60,10 +72,13 @@ const MyProduct = () => {
                                     <th>{i + 1}</th>
                                     <td>{product.name}</td>
                                     <td>{product.resalePrice}</td>
-                                    <td><button onClick={() => handleDelete(product._id)} className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white uppercase'>Delete</button></td>
                                     <td>
-
+                                        {
+                                            !product.advertised &&
+                                            <button onClick={() => handleAdvertised(product._id)} className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white uppercase'>Advertise</button>
+                                        }
                                     </td>
+                                    <td><FaTimes onClick={() => handleDelete(product._id)} /></td>
                                 </tr>
                             )
                         }

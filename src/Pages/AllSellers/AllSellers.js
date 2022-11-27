@@ -73,7 +73,7 @@ const AllSellers = () => {
                             sellers.map((seller, i) =>
                                 <tr>
                                     <th>{i + 1}</th>
-                                    <td className='flex items-center'>{seller.displayName}
+                                    <td>{seller.displayName}
                                         <p>{seller?.verified &&
                                             <Verified></Verified>
                                         }</p></td>

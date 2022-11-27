@@ -14,6 +14,7 @@ import AllSellers from "../../Pages/AllSellers/AllSellers";
 import AllBuyers from "../../Pages/AllBuyers/AllBuyers";
 import Dashboard from "../../Pages/Dashboard/Dashboard/Dashboard";
 import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
+import Payment from "../../Pages/Payment/Payment";
 
 const routes = createBrowserRouter([
     {
@@ -41,6 +42,11 @@ const routes = createBrowserRouter([
             {
                 path: '/myorders',
                 element: <PrivateRoute><MyOrder></MyOrder></PrivateRoute>
+            },
+            {
+                path: '/myorders/payment/:id',
+                loader: ({ params }) => fetch(`http://localhost:5000/bookings/${params.id}`),
+                element: <PrivateRoute><Payment></Payment></PrivateRoute>
             },
             {
                 path: '/dashboard',

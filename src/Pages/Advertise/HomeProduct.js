@@ -8,7 +8,7 @@ const Products = ({ product, setBook, i }) => {
     setLoading(false)
 
     return (
-        <div className=' w-full p-4'>
+        <div className='w-96 p-4'>
             <figure><img className='w-full h-[400px] object-cover object-center rounded-lg shadow-md' src={img} alt={name} /></figure>
 
             <div class="relative px-4 -mt-[100px]">

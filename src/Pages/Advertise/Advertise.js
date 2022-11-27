@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import BookingModal from '../Home/Categories/BookingModal/BookingModal';
 import HomeProduct from "./HomeProduct";
 import "./Advertise.css";
+import { AuthContext } from '../../Context/AuthProvider';
 
 const Advertise = () => {
     const [book, setBook] = useState([]);
     const [category, setCategory] = useState([]);
+    const { setLoading } = useContext(AuthContext)
 
 
     useEffect(() => {
         fetch('http://localhost:5000/allproducts')
             .then(res => res.json())
             .then(data => setCategory(data))
-
+        setLoading(false)
     }, [])
 
 

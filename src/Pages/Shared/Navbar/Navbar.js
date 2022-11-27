@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 
 
 const Navbar = () => {
-    const { user, logOut, setLoading, setIsDark } = useContext(AuthContext);
+    const { user, logOut, setLoading } = useContext(AuthContext);
     const [data, setData] = useState([])
 
     useEffect(() => {

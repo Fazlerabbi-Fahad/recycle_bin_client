@@ -30,7 +30,10 @@ const AddProduct = () => {
                         yearsOfUse: data.yearsOfUse,
                         sellerName: data.sellerName,
                         email: data.sellerEmail,
-                        verified: data.verify
+                        verified: data.verify,
+                        advertised: false,
+                        paid: false,
+                        reported: false
                     }
 
                     fetch('http://localhost:5000/products', {
@@ -140,16 +143,8 @@ const AddProduct = () => {
                                 <span className="label-text text-white">Photo</span>
                             </label>
                             <input type='file' {...register("img", { required: "Image is required" })}
-                                placeholder="Photo" className="input input-bordered w-full max-w-xs text-black" />
+                                placeholder="Photo" className="file-input file-input-border text-white w-full max-w-xs text-black" />
                         </div>
-                        <div className="form-control w-full max-w-xs">
-                            <label className="label">
-                                <span className="label-text text-white">Verify</span>
-                            </label>
-                            <input type='boolean' {...register("verify", { required: "Verify is required" })}
-                                placeholder="Verified" defaultValue={false} readOnly className="file-input file-input-ghost w-full max-w-xs text-black" />
-                        </div>
-
 
 
                         <input className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white uppercase w-full mt-4' value='Add a Product' type="submit" />

@@ -2,9 +2,13 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { AuthContext } from '../../../../Context/AuthProvider';
 import Banner from '../../../Shared/Banner/Banner';
+import { FaTimes } from "react-icons/fa";
+import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
+
 
 const MyOrder = () => {
-    const { user } = useContext(AuthContext)
+    const { user, setLoading } = useContext(AuthContext)
     const { data: orders = [], refetch } = useQuery({
         queryKey: ['orders'],
         queryFn: async () => {
@@ -14,6 +18,21 @@ const MyOrder = () => {
         }
     })
     refetch()
+
+    const handleOrderDelete = id => {
+        fetch(`http://localhost:5000/bookings/${id}`, {
+            method: "DELETE",
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    toast.success("Product deleted successfully")
+                    setLoading(false);
+                    refetch()
+                }
+            })
+            .catch(error => toast.error(error.message))
+    }
 
 
     return (
@@ -30,6 +49,7 @@ const MyOrder = () => {
                             <th>Title</th>
                             <th>Price</th>
                             <th>Action</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,8 +60,8 @@ const MyOrder = () => {
                                     <th>{i + 1}</th>
                                     <td>{order.product}</td>
                                     <td>{order.price}</td>
-                                    <td><button className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white uppercase'>Pay</button></td>
-
+                                    <td><Link to={`/myorders/payment/${order._id}`}><button className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white uppercase'>Pay</button></Link></td>
+                                    <td><FaTimes onClick={() => handleOrderDelete(order._id)} /></td>
                                 </tr>
                             )
                         }
