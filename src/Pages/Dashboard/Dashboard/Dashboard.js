@@ -1,6 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider';
 import BookingModal from '../../Home/Categories/BookingModal/BookingModal';
 import Products from '../../Home/Categories/Products/Products';
@@ -29,7 +27,7 @@ const Dashboard = () => {
     return (
         <div>
             <Banner>
-                <h1 className="mb-5 text-5xl font-bold text-white uppercase">Welcome to {user?.displayName}</h1>
+                <h1 className="mb-5 text-5xl font-bold text-white uppercase">Hello {user?.displayName}</h1>
                 <p className="mb-5 text-white"></p>
             </Banner>
             <div className='bg-neutral p-10 grid gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>

@@ -1,3 +1,4 @@
+import { data } from 'autoprefixer';
 import React, { useContext, useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../../../Context/AuthProvider';
@@ -9,10 +10,8 @@ const Category = () => {
     const { user } = useContext(AuthContext);
     const [book, setBook] = useState([]);
     const category = useLoaderData();
-    const { setLoading } = useContext(AuthContext)
 
 
-    setLoading(false)
     return (
         <div>
             <Banner>
@@ -25,6 +24,7 @@ const Category = () => {
                         key={product._id}
                         product={product}
                         setBook={setBook}
+                        data={data}
                     >
                     </Products>)
                 }
@@ -40,6 +40,7 @@ const Category = () => {
 
                 </BookingModal>
             }
+
 
         </div>
     );

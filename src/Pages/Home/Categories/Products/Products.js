@@ -1,12 +1,7 @@
-import React, { useContext } from 'react';
-import { AuthContext } from '../../../../Context/AuthProvider';
 import './Product.css';
 
-const Products = ({ product, setBook }) => {
+const Products = ({ product, setBook, setWishList, data }) => {
     const { img, name, location, resalePrice, originalPrice, yearsOfUse, sellerName, advertised } = product;
-    const { setLoading } = useContext(AuthContext)
-
-    setLoading(false)
 
     return (
         <div>
@@ -46,6 +41,7 @@ const Products = ({ product, setBook }) => {
                     <div class="mt-4">
                         <span class="text-teal-600 text-md font-semibold"> Resale Price:<strong> {resalePrice}</strong> tk.</span>
                     </div>
+
                     <div class="mt-2 flex justify-end">
                         <label htmlFor="recycleModal"
                             onClick={() => setBook(product)}

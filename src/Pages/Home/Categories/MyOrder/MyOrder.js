@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 
 const MyOrder = () => {
-    const { user, setLoading } = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
     const { data: orders = [], refetch } = useQuery({
         queryKey: ['orders'],
         queryFn: async () => {
@@ -27,7 +27,6 @@ const MyOrder = () => {
             .then(data => {
                 if (data.deletedCount > 0) {
                     toast.success("Product deleted successfully")
-                    setLoading(false);
                     refetch()
                 }
             })

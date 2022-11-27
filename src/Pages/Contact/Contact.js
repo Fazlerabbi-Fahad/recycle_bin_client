@@ -3,6 +3,8 @@ import Banner from '../Shared/Banner/Banner';
 import ContactUs from '../Shared/ContactUs/ContactUs';
 
 const Contact = () => {
+
+
     return (
         <div>
             <Banner>

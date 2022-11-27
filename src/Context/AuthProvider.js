@@ -9,8 +9,6 @@ const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState('');
     const [loading, setLoading] = useState(true);
-    const [isDark, setIsDark] = useState(false);
-    console.log(isDark);
 
     const googleProvider = new GoogleAuthProvider();
 
@@ -59,8 +57,6 @@ const AuthProvider = ({ children }) => {
         logIn,
         logOut,
         signInWithGoogle,
-        isDark,
-        setIsDark
     }
     return (
         <AuthContext.Provider value={authInfo}>

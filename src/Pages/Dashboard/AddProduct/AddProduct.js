@@ -6,13 +6,13 @@ import Banner from '../../Shared/Banner/Banner';
 
 const AddProduct = () => {
     const { register, handleSubmit } = useForm();
-    const { user, setLoading } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
     const handleAddProduct = data => {
         const image = data.img[0];
         const formData = new FormData();
         formData.append('image', image);
-        const url = `https://api.imgbb.com/1/upload?key=dfe93ec534568eabece8fe3e3e6e977a`;
+        const url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_imageibb_key}`;
         fetch(url, {
             method: "POST",
             body: formData
@@ -51,7 +51,6 @@ const AddProduct = () => {
                             })
                                 .then(res => res.json())
                                 .then(data => {
-                                    setLoading(false)
                                 })
                         })
                 }

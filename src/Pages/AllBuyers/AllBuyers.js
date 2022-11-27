@@ -3,11 +3,13 @@ import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../Context/AuthProvider';
 import Banner from '../Shared/Banner/Banner';
+import { FaTimes } from "react-icons/fa";
+import Loader from "../../Components/Loader";
 
 const AllBuyers = () => {
-    const { user, setLoading } = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
 
-    const { data: Buyers = [], refetch } = useQuery({
+    const { data: Buyers = [], isLoading, refetch } = useQuery({
         queryKey: ['buyer'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/users/buyer')
@@ -25,12 +27,14 @@ const AllBuyers = () => {
                 if (data.deletedCount > 0) {
                     toast.success("User deleted successfully")
                     refetch();
-                    setLoading(false)
                 }
             })
             .catch(error => toast.error(error.message))
     }
 
+    if (isLoading) {
+        return <Loader></Loader>
+    }
 
     return (
         <div>
@@ -56,7 +60,7 @@ const AllBuyers = () => {
                                     <th>{i + 1}</th>
                                     <td>{buyer.displayName}</td>
                                     <td>{buyer.email}</td>
-                                    <td><button onClick={() => handleDelete(buyer._id)} className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white uppercase'>Delete</button></td>
+                                    <td><FaTimes onClick={() => handleDelete(buyer._id)} /></td>
                                 </tr>
                             )
                         }
@@ -66,7 +70,7 @@ const AllBuyers = () => {
                 </table>
             </div>
 
-        </div>
+        </div >
     );
 };
 

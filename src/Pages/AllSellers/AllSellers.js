@@ -4,12 +4,14 @@ import toast from 'react-hot-toast';
 import Verified from '../../Components/Verified';
 import { AuthContext } from '../../Context/AuthProvider';
 import Banner from '../Shared/Banner/Banner';
+import { FaTimes } from "react-icons/fa";
+import Loader from "../../Components/Loader";
 
 
 const AllSellers = () => {
-    const { user, setLoading } = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
 
-    const { data: sellers = [], refetch } = useQuery({
+    const { data: sellers = [], isLoading, refetch } = useQuery({
         queryKey: ['seller'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/users/seller')
@@ -27,7 +29,6 @@ const AllSellers = () => {
                 if (data.deletedCount > 0) {
                     toast.success("User deleted successfully")
                     refetch();
-                    setLoading(false);
                 }
             })
             .catch(error => toast.error(error.message))
@@ -42,11 +43,12 @@ const AllSellers = () => {
                 if (data.modifiedCount > 0) {
                     toast.success(`${user?.displayName} is now verified`)
                     refetch();
-                    setLoading(false)
                 }
             })
     }
-
+    if (isLoading) {
+        return <Loader></Loader>
+    }
 
 
 
@@ -84,7 +86,7 @@ const AllSellers = () => {
                                             <button onClick={() => handleVerify(seller._id)} className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white uppercase'>Verify</button>
                                         }
                                     </td>
-                                    <td><button onClick={() => handleDelete(seller._id)} className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white uppercase'>Delete</button></td>
+                                    <td><FaTimes onClick={() => handleDelete(seller._id)} /></td>
                                 </tr>
                             )
                         }

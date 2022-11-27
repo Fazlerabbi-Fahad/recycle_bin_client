@@ -10,14 +10,14 @@ import toast from 'react-hot-toast';
 const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { logIn, signInWithGoogle, } = useContext(AuthContext);
-    const navigate = useNavigate();
     const location = useLocation();
+    const navigate = useNavigate();
     const from = location?.state?.from?.pathname || '/';
 
     const handleLogin = data => {
         logIn(data.email, data.password)
             .then(result => {
-
+                const user = result.user;
                 navigate(from, { replace: true });
                 toast.success('Log In Successful')
 
@@ -52,11 +52,6 @@ const Login = () => {
         })
             .then(res => res.json())
             .then(data => {
-                if (data.acknowledged) {
-
-                    toast.success('User added successfully')
-
-                }
             })
             .catch(error => toast.error(error))
     }

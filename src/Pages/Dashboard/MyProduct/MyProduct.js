@@ -6,7 +6,7 @@ import { FaTimes } from "react-icons/fa";
 import { useQuery } from '@tanstack/react-query';
 
 const MyProduct = () => {
-    const { user, setLoading } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const url = `http://localhost:5000/products?email=${user?.email}`
     const { data: products = [], refetch } = useQuery({
         queryKey: ['seller'],
@@ -25,7 +25,6 @@ const MyProduct = () => {
             .then(data => {
                 if (data.deletedCount > 0) {
                     toast.success("Product deleted successfully")
-                    setLoading(false);
                     refetch()
                 }
             })
@@ -41,7 +40,6 @@ const MyProduct = () => {
                 console.log(data);
                 if (data.modifiedCount > 0) {
                     toast.success('See in the homepage')
-                    setLoading(false)
                     refetch()
                 }
             })

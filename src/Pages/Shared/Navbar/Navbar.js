@@ -4,6 +4,7 @@ import Button from "../Button/Button";
 import Logo from "../../../Asssests/Images/Logo.png";
 import { AuthContext } from '../../../Context/AuthProvider';
 import toast from 'react-hot-toast';
+import Userphoto from "../../../Asssests/Images/Userphoto.png";
 
 
 const Navbar = () => {
@@ -53,7 +54,13 @@ const Navbar = () => {
                     </div>
                     :
                     user?.email && data[0]?.role === "buyer" ?
-                        < li > <Link to='/myorders'>My Orders</Link></li>
+                        <div className="dropdown dropdown-hover">
+                            <li><Link tabIndex={0} to='/dashboard'>Dashboard</Link></li>
+                            <ul tabIndex={0} className="dropdown-content menu p-2 shadow rounded-box w-52 bg-secondary">
+                                <li><Link to='/myorders'>My Orders</Link></li>
+                            </ul>
+                        </div>
+
                         :
                         <li><Link to='/dashboard'>Dashboard</Link></li>
         }
@@ -65,9 +72,10 @@ const Navbar = () => {
         }
 
         {
-            user?.photoURL &&
-            <img src={user?.photoURL} className='w-10 rounded-full' alt="" />
-
+            user?.photoURL ?
+                <img src={user?.photoURL} className='w-10 rounded-full' alt="" />
+                :
+                <img src={Userphoto} className='w-10 rounded-full' alt="" />
         }
     </>
     setLoading(false)

@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../../Context/AuthProvider';
 
 const BookingModal = ({ book }) => {
     const { register, handleSubmit } = useForm();
-    const { user, setLoading } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const { name, originalPrice } = book;
     const navigate = useNavigate();
 
@@ -30,7 +30,6 @@ const BookingModal = ({ book }) => {
             .then(res => res.json())
             .then(data => {
                 if (data.acknowledged) {
-                    setLoading(false)
                     navigate('/myorders')
                     toast.success("Product is booked")
                 }
@@ -97,8 +96,14 @@ const BookingModal = ({ book }) => {
                                     placeholder="Meeting Location" className="input input-bordered w-full  text-black" />
                             </div>
 
+                            {
+                                user?.email ?
+                                    <input className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white uppercase w-full mt-4'
+                                        value='Book Now' type="submit" />
+                                    :
+                                    <Link to='/login' className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white uppercase w-full mt-4'>Login First</Link>
+                            }
 
-                            <input className='btn btn-primary bg-gradient-to-r from-primary to-secondary text-white uppercase w-full mt-4' value='Book Now' type="submit" />
                         </form>
                     </div>
                 </div >

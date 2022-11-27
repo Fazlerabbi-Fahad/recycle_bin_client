@@ -8,14 +8,12 @@ import { AuthContext } from '../../Context/AuthProvider';
 const Advertise = () => {
     const [book, setBook] = useState([]);
     const [category, setCategory] = useState([]);
-    const { setLoading } = useContext(AuthContext)
 
 
     useEffect(() => {
         fetch('http://localhost:5000/allproducts')
             .then(res => res.json())
             .then(data => setCategory(data))
-        setLoading(false)
     }, [])
 
 

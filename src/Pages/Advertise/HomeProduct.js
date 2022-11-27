@@ -1,11 +1,7 @@
-import React, { useContext } from 'react';
-import { AuthContext } from '../../Context/AuthProvider';
+import React from 'react';
 
 const Products = ({ product, setBook, i }) => {
     const { img, name, location, resalePrice, originalPrice, yearsOfUse, sellerName, advertised } = product;
-    const { setLoading } = useContext(AuthContext)
-
-    setLoading(false)
 
     return (
         <div className='w-96 p-4'>

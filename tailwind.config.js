@@ -7,10 +7,10 @@ module.exports = {
     themes: [
       {
         recycletheme: {
-          primary: "#a21caf",
-          secondary: "#d946ef",
-          accent: "#e879f9",
-          neutral: "#701a75",
+          primary: "#253898",
+          secondary: "#5737D6",
+          accent: "#6F00ED",
+          neutral: "#DB0B5F",
           "base-100": "#FFFFFF",
         },
       },

@@ -1,16 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../../../Context/AuthProvider';
 
 const Categories = () => {
     const [categories, setCategories] = useState([]);
-    const { setLoading } = useContext(AuthContext)
 
     useEffect(() => {
         fetch('http://localhost:5000/categories')
             .then(res => res.json())
             .then(data => setCategories(data))
-        setLoading(false)
     }, [])
     return (
         <div className="bg-accent p-10">

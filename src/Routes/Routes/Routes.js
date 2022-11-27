@@ -14,7 +14,8 @@ import AllSellers from "../../Pages/AllSellers/AllSellers";
 import AllBuyers from "../../Pages/AllBuyers/AllBuyers";
 import Dashboard from "../../Pages/Dashboard/Dashboard/Dashboard";
 import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
-import Payment from "../../Pages/Payment/Payment";
+import AdminRoute from "../AdminRoute/AdminRoute";
+import SellerRoute from "../SellerRoute/SellerRoute";
 
 const routes = createBrowserRouter([
     {
@@ -44,29 +45,24 @@ const routes = createBrowserRouter([
                 element: <PrivateRoute><MyOrder></MyOrder></PrivateRoute>
             },
             {
-                path: '/myorders/payment/:id',
-                loader: ({ params }) => fetch(`http://localhost:5000/bookings/${params.id}`),
-                element: <PrivateRoute><Payment></Payment></PrivateRoute>
-            },
-            {
                 path: '/dashboard',
                 element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
             },
             {
                 path: '/addproduct',
-                element: <PrivateRoute><AddProduct></AddProduct></PrivateRoute>
+                element: <SellerRoute><AddProduct></AddProduct></SellerRoute>
             },
             {
                 path: '/myproducts',
-                element: <PrivateRoute><MyProduct></MyProduct></PrivateRoute>
+                element: <SellerRoute><MyProduct></MyProduct></SellerRoute>
             },
             {
                 path: '/allsellers',
-                element: <PrivateRoute><AllSellers></AllSellers></PrivateRoute>
+                element: <AdminRoute><AllSellers></AllSellers></AdminRoute>
             },
             {
                 path: '/allbuyers',
-                element: <PrivateRoute><AllBuyers></AllBuyers></PrivateRoute>
+                element: <AdminRoute><AllBuyers></AllBuyers></AdminRoute>
             },
 
             {
