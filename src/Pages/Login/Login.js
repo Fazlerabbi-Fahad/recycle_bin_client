@@ -17,12 +17,11 @@ const Login = () => {
     const handleLogin = data => {
         logIn(data.email, data.password)
             .then(result => {
-                const user = result.user;
                 navigate(from, { replace: true });
                 toast.success('Log In Successful')
 
             })
-            .catch(error => toast.error(error))
+            .catch(error => toast.error(error.message.split('/')[1].split(')')))
     }
 
     const handleSignInWithGoogle = () => {
@@ -40,10 +39,10 @@ const Login = () => {
                 toast.success('Log In Successful')
 
             })
-            .catch(error => toast.error(error))
+            .catch(error => toast.error(error.message.split('/')[1].split(')')))
     }
     const addUsers = profile => {
-        fetch('http://localhost:5000/users', {
+        fetch('https://recycle-bin-furniture-server.vercel.app/users', {
             method: "POST",
             headers: {
                 "content-type": "application/json"
@@ -53,7 +52,7 @@ const Login = () => {
             .then(res => res.json())
             .then(data => {
             })
-            .catch(error => toast.error(error))
+            .catch(error => toast.error(error.message))
     }
 
     return (
@@ -73,7 +72,7 @@ const Login = () => {
                             </label>
                             <input type='email' {...register("email", { required: "Email Address is required" })}
                                 placeholder="Email" className="input input-bordered w-full max-w-xs text-black" />
-                            {errors.email && <p className='text-red-600'>{errors.email?.message}</p>}
+                            {errors.email && <p className='text-red-900'>{errors.email?.message}</p>}
                         </div>
 
                         <div className="form-control w-full max-w-xs">
@@ -85,7 +84,7 @@ const Login = () => {
                                 minLength: { value: 6, message: 'Password must be 6 characters or longer' }
                             })}
                                 placeholder="Password" className="input input-bordered w-full max-w-xs text-black" />
-                            {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
+                            {errors.password && <p className='text-red-900'>{errors.password?.message}</p>}
 
                             <label className="label">
                                 <span className="label-text text-white">Forget Password</span><br />

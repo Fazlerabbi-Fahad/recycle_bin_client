@@ -36,7 +36,7 @@ const AddProduct = () => {
                         reported: false
                     }
 
-                    fetch('http://localhost:5000/products', {
+                    fetch('https://recycle-bin-furniture-server.vercel.app/products', {
                         method: "POST",
                         headers: {
                             "content-type": "application/json"
@@ -46,7 +46,7 @@ const AddProduct = () => {
                         .then(res => res.json())
                         .then(result => {
                             toast.success(`${user.displayName} is added successfully`);
-                            fetch(`http://localhost:5000/products/${product._id}`, {
+                            fetch(`https://recycle-bin-furniture-server.vercel.app/products/${product._id}`, {
                                 method: "PUT"
                             })
                                 .then(res => res.json())

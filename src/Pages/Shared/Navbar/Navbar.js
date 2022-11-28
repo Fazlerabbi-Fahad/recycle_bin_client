@@ -8,11 +8,11 @@ import Userphoto from "../../../Asssests/Images/Userphoto.png";
 
 
 const Navbar = () => {
-    const { user, logOut, setLoading } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
     const [data, setData] = useState([])
 
     useEffect(() => {
-        fetch(`http://localhost:5000/users?email=${user?.email}`)
+        fetch(`https://recycle-bin-furniture-server.vercel.app/users?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setData(data))
     }, [user?.email])
@@ -21,9 +21,8 @@ const Navbar = () => {
         logOut()
             .then(result => {
                 toast.success('Logged Out Successfully')
-                setLoading(false)
             })
-            .catch(error => toast.error(error))
+            .catch(error => toast.error(error.message))
     }
 
 
@@ -36,8 +35,6 @@ const Navbar = () => {
                 <div className="dropdown dropdown-hover">
                     <li><Link tabIndex={0} to='/dashboard'>Dashboard</Link></li>
                     <ul tabIndex={0} className="menu menu-compact lg:dropdown-content menu p-2 shadow rounded-box w-52 bg-secondary">
-                        <li><Link to='/addproduct'>Add Product</Link></li>
-                        <li><Link to='/myproducts'>My Products</Link></li>
                         <li><Link to='/allsellers'>All Sellers</Link></li>
                         <li><Link to='/allbuyers'>All Buyers</Link></li>
                     </ul>
@@ -78,7 +75,6 @@ const Navbar = () => {
                 <img src={Userphoto} className='w-10 rounded-full' alt="" />
         }
     </>
-    setLoading(false)
     return (
         <div className="navbar bg-gradient-to-r from-primary to-accent text-white uppercase absolute lg:top-5 lg:max-w-[1200px] lg:left-10 lg:rounded-lg">
             <div className="navbar-start ">

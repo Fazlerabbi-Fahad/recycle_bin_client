@@ -12,7 +12,7 @@ const MyOrder = () => {
     const { data: orders = [], refetch } = useQuery({
         queryKey: ['orders'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/bookings?email=${user?.email}`)
+            const res = await fetch(`https://recycle-bin-furniture-server.vercel.app/bookings?email=${user?.email}`)
             const data = res.json()
             return data
         }
@@ -20,7 +20,7 @@ const MyOrder = () => {
     refetch()
 
     const handleOrderDelete = id => {
-        fetch(`http://localhost:5000/bookings/${id}`, {
+        fetch(`https://recycle-bin-furniture-server.vercel.app/bookings/${id}`, {
             method: "DELETE",
         })
             .then(res => res.json())
@@ -55,7 +55,7 @@ const MyOrder = () => {
 
                         {
                             orders.map((order, i) =>
-                                <tr>
+                                <tr key={order._id}>
                                     <th>{i + 1}</th>
                                     <td>{order.product}</td>
                                     <td>{order.price}</td>

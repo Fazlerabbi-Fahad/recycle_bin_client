@@ -1,23 +1,22 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import toast from "react-hot-toast";
+import { AuthContext } from "../Context/AuthProvider";
 
-const useSeller = email => {
-    const [isSeller, setIsSeller] = useState('');
+const useSeller = () => {
+    const { user } = useContext(AuthContext);
+    const [isSeller, setIsSeller] = useState(false);
     const [isSellerLoading, setIsSellerLoading] = useState(true);
-
     useEffect(() => {
-        if (email) {
-            fetch(`http://localhost:5000/users?email=${email}`)
-                .then(res => res.json())
-                .then(data => {
-                    if (data.role === "seller") {
-                        setIsSeller(data.role)
-                        setIsSellerLoading(false)
+        fetch(`https://recycle-bin-furniture-server.vercel.app/users?email=${user?.email}`)
+            .then(res => res.json())
 
-                    }
-
-                })
-        }
-    }, [email])
+            .then(data => {
+                if (data[0].role === "seller") {
+                    setIsSeller(true)
+                    setIsSellerLoading(false)
+                }
+            })
+    }, [user?.email])
     return [isSeller, isSellerLoading];
 }
 

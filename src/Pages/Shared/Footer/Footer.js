@@ -12,7 +12,7 @@ const Footer = () => {
             .then(result => {
                 toast.success('Logged Out Successfully')
             })
-            .catch(error => toast.error(error))
+            .catch(error => toast.error(error.message))
     }
     return (
         <footer className="footer bg-gradient-to-r from-primary to-accent items-center p-4 bg-neutral text-neutral-content">

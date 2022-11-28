@@ -37,7 +37,7 @@ const routes = createBrowserRouter([
             },
             {
                 path: '/categories/:id',
-                loader: ({ params }) => fetch(`http://localhost:5000/products/${params.id}`),
+                loader: ({ params }) => fetch(`https://recycle-bin-furniture-server.vercel.app/products/${params.id}`),
                 element: <PrivateRoute><Category></Category></PrivateRoute>
             },
             {

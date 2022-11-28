@@ -20,7 +20,7 @@ const BookingModal = ({ book }) => {
             meeting: data.meetingLocation
         }
 
-        fetch('http://localhost:5000/bookings', {
+        fetch('https://recycle-bin-furniture-server.vercel.app/bookings', {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -34,7 +34,7 @@ const BookingModal = ({ book }) => {
                     toast.success("Product is booked")
                 }
             })
-            .catch(error => toast.error(error))
+            .catch(error => toast.error(error.message))
 
 
 

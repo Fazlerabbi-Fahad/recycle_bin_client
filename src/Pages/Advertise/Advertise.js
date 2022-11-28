@@ -11,7 +11,7 @@ const Advertise = () => {
 
 
     useEffect(() => {
-        fetch('http://localhost:5000/allproducts')
+        fetch('https://recycle-bin-furniture-server.vercel.app/allproducts')
             .then(res => res.json())
             .then(data => setCategory(data))
     }, [])
@@ -48,6 +48,7 @@ const Advertise = () => {
             </div>
             {
                 <BookingModal
+                    key={book.idx}
                     book={book}
                 >
 

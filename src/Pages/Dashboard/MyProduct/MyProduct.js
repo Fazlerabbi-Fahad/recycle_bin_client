@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const MyProduct = () => {
     const { user } = useContext(AuthContext);
-    const url = `http://localhost:5000/products?email=${user?.email}`
+    const url = `https://recycle-bin-furniture-server.vercel.app/products?email=${user?.email}`
     const { data: products = [], refetch } = useQuery({
         queryKey: ['seller'],
         queryFn: async () => {
@@ -18,7 +18,7 @@ const MyProduct = () => {
     })
 
     const handleDelete = id => {
-        fetch(`http://localhost:5000/product/${id}`, {
+        fetch(`https://recycle-bin-furniture-server.vercel.app/product/${id}`, {
             method: "DELETE",
         })
             .then(res => res.json())
@@ -32,12 +32,11 @@ const MyProduct = () => {
     }
 
     const handleAdvertised = id => {
-        fetch(`http://localhost:5000/allproducts/${id}`, {
+        fetch(`https://recycle-bin-furniture-server.vercel.app/allproducts/${id}`, {
             method: "PUT"
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.modifiedCount > 0) {
                     toast.success('See in the homepage')
                     refetch()

@@ -15,8 +15,7 @@ const ContactUs = () => {
             email,
             message,
         }
-        console.log(contact);
-        fetch('http://localhost:5000/messages', {
+        fetch('https://recycle-bin-furniture-server.vercel.app/messages', {
             method: "POST",
             headers: {
                 "content-type": "application/json",

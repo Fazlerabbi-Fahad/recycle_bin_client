@@ -33,9 +33,9 @@ const SignUp = () => {
                         }
                         addUsers(userInfo)
                     })
-                    .catch(error => toast.error(error))
+                    .catch(error => toast.error(error.message.split('/')[1].split(')')))
             })
-            .catch(error => toast.error(error))
+            .catch(error => toast.error(error.message.split('/')[1].split(')')))
     }
 
     const handleSignInWithGoogle = () => {
@@ -57,13 +57,13 @@ const SignUp = () => {
                         }
                         addUsers(userInfo)
                     })
-                    .catch(error => toast.error(error))
+                    .catch(error => toast.error(error.message.split('/')[1].split(')')))
             })
-            .catch(error => toast.error(error))
+            .catch(error => toast.error(error.message.split('/')[1].split(')')))
     }
 
     const addUsers = profile => {
-        fetch('http://localhost:5000/users', {
+        fetch('https://recycle-bin-furniture-server.vercel.app/users', {
             method: "POST",
             headers: {
                 "content-type": "application/json"
@@ -78,7 +78,7 @@ const SignUp = () => {
                     navigate('/')
                 }
             })
-            .catch(error => toast.error(error))
+            .catch(error => toast.error(error.message))
     }
     return (
         <div>
@@ -97,15 +97,18 @@ const SignUp = () => {
                             </label>
                             <input type='name' {...register("name", { required: "Name is required" })}
                                 placeholder="Name" className="input input-bordered w-full max-w-xs text-black" />
-                            {errors.name && <p className='text-red-600'>{errors.name?.message}</p>}
+                            {errors.name && <p className='text-red-900'>{errors.name?.message}</p>}
                         </div>
                         <div className="form-control w-full max-w-xs">
                             <label className="label">
                                 <span className="label-text text-white">Email</span>
                             </label>
-                            <input type='email' {...register("email", { required: "Email Address is required" })}
+                            <input type='email' {...register("email", {
+                                required: "Email Address is required",
+                                pattern: { value: /^[a-z]/, message: "Email must be in lowercase" }
+                            })}
                                 placeholder="Email" className="input input-bordered w-full max-w-xs text-black" />
-                            {errors.email && <p className='text-red-600'>{errors.email?.message}</p>}
+                            {errors.email && <p className='text-red-900'>{errors.email?.message}</p>}
                         </div>
 
                         <div className="form-control w-full max-w-xs">
@@ -118,7 +121,7 @@ const SignUp = () => {
                                 minLength: { value: 6, message: 'Password must be 6 characters or longer' }
                             })}
                                 placeholder="Password" className="input input-bordered w-full max-w-xs text-black" />
-                            {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
+                            {errors.password && <p className='text-red-900'>{errors.password?.message}</p>}
                         </div>
                         <div className="form-control w-full max-w-xs">
                             <label className="label">

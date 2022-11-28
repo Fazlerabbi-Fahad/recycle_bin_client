@@ -14,14 +14,13 @@ const Dashboard = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/dashboardProducts?page=${page}&size=${size}`)
+        fetch(`https://recycle-bin-furniture-server.vercel.app/dashboardProducts?page=${page}&size=${size}`)
             .then(res => res.json())
             .then(data => {
                 setCount(data.count)
                 setCategory(data.products)
             })
     }, [page, size])
-    console.log(category);
     const pages = Math.ceil(count / size);
 
     return (

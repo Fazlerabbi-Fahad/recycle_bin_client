@@ -5,55 +5,53 @@ import app from '../Firebase/firebase.config';
 export const AuthContext = createContext();
 
 const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState('');
-    const [loading, setLoading] = useState(true);
 
-    const googleProvider = new GoogleAuthProvider();
+    const [user, setUser] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
 
     const createUser = (email, password) => {
-        setLoading(true)
+        setIsLoading(true)
         return createUserWithEmailAndPassword(auth, email, password);
     };
 
     const signInWithGoogle = () => {
-        setLoading(true)
+        setIsLoading(true)
         return signInWithPopup(auth, googleProvider)
     }
 
     const logIn = (email, password) => {
-        setLoading(true)
+        setIsLoading(true)
         return signInWithEmailAndPassword(auth, email, password);
     };
 
+
     const updateUser = profile => {
-        setLoading(true)
+        setIsLoading(true)
         return updateProfile(auth.currentUser, profile);
+    }
+    const logOut = () => {
+        setIsLoading(true)
+        return signOut(auth);
     }
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
-            setLoading(false)
-        })
-        return () => unsubscribe;
+            setIsLoading(false);
+        });
+
+        return () => unsubscribe();
     }, [])
-
-
-    const logOut = () => {
-        setLoading(true)
-        return signOut(auth);
-    }
-
 
     const authInfo = {
         user,
-        setLoading,
+        isLoading,
+        setIsLoading,
         createUser,
         updateUser,
-        loading,
-        setLoading,
         logIn,
         logOut,
         signInWithGoogle,

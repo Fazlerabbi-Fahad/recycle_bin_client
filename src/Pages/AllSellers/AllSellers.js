@@ -14,14 +14,14 @@ const AllSellers = () => {
     const { data: sellers = [], isLoading, refetch } = useQuery({
         queryKey: ['seller'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/users/seller')
+            const res = await fetch('https://recycle-bin-furniture-server.vercel.app/users/seller')
             const data = await res.json()
             return data
         }
     })
 
     const handleDelete = id => {
-        fetch(`http://localhost:5000/users/${id}`, {
+        fetch(`https://recycle-bin-furniture-server.vercel.app/users/${id}`, {
             method: "DELETE",
         })
             .then(res => res.json())
@@ -35,7 +35,7 @@ const AllSellers = () => {
     }
 
     const handleVerify = id => {
-        fetch(`http://localhost:5000/users/${id}`, {
+        fetch(`https://recycle-bin-furniture-server.vercel.app/users/${id}`, {
             method: "PUT"
         })
             .then(res => res.json())
@@ -73,7 +73,7 @@ const AllSellers = () => {
 
                         {
                             sellers.map((seller, i) =>
-                                <tr>
+                                <tr key={seller._id}>
                                     <th>{i + 1}</th>
                                     <td>{seller.displayName}
                                         <p>{seller?.verified &&

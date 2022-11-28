@@ -35,6 +35,7 @@ const Category = () => {
             </div>
             {
                 <BookingModal
+                    key={book.idx}
                     book={book}
                 >
 
