@@ -4,8 +4,8 @@ This is a responsive, fully-functional re-selling website. I created this whole 
 -> A wonderful and responsive UI.<br>
 -> Used great animations.<br>
 -> Used dynamic and static data<br>
--> Back-end is created by Node JS, Express JS
--> Database is created by MongoDB
--> Used firebase to deploy
--> Allowing customers and sellers to create an account,browse products, buy products & write reviews
--> Admins can delete any sellers and buyers, sellers have the ability to add products, remove existing products,buyers can buy products.
+-> Back-end is created by Node JS, Express JS<br>
+-> Database is created by MongoDB<br>
+-> Used firebase to deploy<br>
+-> Allowing customers and sellers to create an account,browse products, buy products & write reviews<br>
+-> Admins can delete any sellers and buyers, sellers have the ability to add products, remove existing products,buyers can buy products.<br>
